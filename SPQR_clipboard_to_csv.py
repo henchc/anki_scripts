@@ -1,15 +1,16 @@
-import sys
 import csv
+import tkinter as tk
 
-fpath = sys.argv[1]
+root = tk.Tk()
 
-with open(fpath, "r") as f:
-    raw = f.read()
+# keep the window from showing
+root.withdraw()
 
-words = raw.split("\n\n")
+# read the clipboard
+words = root.clipboard_get().split("\n\n")
 
 words_filtered = [tuple(l.split("\n"))
-                  for l in words if "unknown" not in l.lower() and len(l) > 0]
+                  for l in words if "unknown" not in l.lower() and len(l) > 1]
 
 with open("to_anki.csv", "w") as f:
     csv_writer = csv.writer(f)
